@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import cross from "../assets/cross1.png";
 import share from "../assets/share.png";
@@ -11,8 +10,28 @@ import Modal from "react-modal";
 import { apiEndPoint, baseUrl } from "../env";
 import SignIn from "./modals/SignIn";
 
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
 const slideContent = {
   color: "white",
+};
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 1,
+    slidesToSlide: 1,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 1,
+    slidesToSlide: 1,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+    slidesToSlide: 1,
+  },
 };
 
 const divStyle = {
@@ -137,13 +156,19 @@ export default function ViewStory({ story, closeModal }) {
     <div className="modal-slide">
       <div className="modal-content-slide">
         <div className="slide-container">
-          <Slide style={{ border: "5px solid black" }}>
+          <Carousel
+            responsive={responsive}
+            slidesToSlide={1}
+            showDots={true}
+            autoPlay={true}
+            style={{ border: "5px solid black" }}
+          >
             {story?.slides?.map((slideImage, index) => (
               <div
                 key={index}
                 style={{
                   border: "none",
-                  padding: "1rem",
+                  width: "100%",
                 }}
               >
                 <div
@@ -218,7 +243,7 @@ export default function ViewStory({ story, closeModal }) {
                 </div>
               </div>
             ))}
-          </Slide>
+          </Carousel>
         </div>
       </div>
     </div>
